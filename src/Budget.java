@@ -2,9 +2,7 @@ import javax.swing.*;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 public class Budget {
 
@@ -33,12 +31,14 @@ public class Budget {
     public void setCurrentBudget(double currentBudget) {
         this.currentBudget = currentBudget;
         Budget Waarschuwing  = new OverBudgetWaarschuwing(budget);
-        ((OverBudgetWaarschuwing) Waarschuwing).CheckBudgetisOnder0(currentBudget);
+         Waarschuwing.CheckBudgetisOnder0(currentBudget);
+
     }
 
     public double getCurrentBudget() {
         return currentBudget;
     }
+    public void CheckBudgetisOnder0(double currentBudget) {}
 
 
     public void draw(Graphics g, JButton button, JButton inkomstButton) {
@@ -117,6 +117,58 @@ public class Budget {
         inkomstButton.setBounds(x + width/2 - buttonWidth/2, buttonY + buttonHeight + 10, buttonWidth, buttonHeight); // set the income button position and size
 
     }
+
+        public static boolean Budgetrapportgemaaktals(boolean budgetgroterdan0, boolean aantaldagen_isgtorerdan30, boolean transactiegroterdannull) {
+
+
+            return budgetgroterdan0 || (aantaldagen_isgtorerdan30 && transactiegroterdannull);
+        }
+
+
+
+
+        public static int BudgetAdvies_EQ_RD(int inkomst){
+
+
+        if (inkomst >=1000 && inkomst <10000){   return  (inkomst/100*20);}
+        else if (inkomst >=10000 ){ return  (inkomst/100*30);  }
+        return inkomst/100*10;
+        }
+
+
+
+
+
+
+        public static int appcoste(int leeftijd, boolean inkomst, boolean advies, int maand){
+            int cost = 0;
+            int VOLWASSEN_LEEFTIJD = 18;
+            int KIND_LEEFTIJD = 11;
+
+            if (leeftijd >= VOLWASSEN_LEEFTIJD) {
+                cost = 100;
+            } else if (leeftijd < KIND_LEEFTIJD) {
+                cost = 0;
+            } else {
+                cost = 50;
+            }
+            if (!inkomst) {
+                cost = 0;
+            }
+            if (maand >12) {
+                cost += 50;
+            }
+            if (!advies) {
+                cost = -1;
+            }
+            return cost;
+}
+
+
+
+
+
+
 
 
 }

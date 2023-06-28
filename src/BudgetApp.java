@@ -10,14 +10,12 @@ public class BudgetApp extends JPanel {
     private  Budget budget = new Budget(500);
     private Font font = new Font("Arial", Font.BOLD, 20);
     private Color textColor = Color.black;
-    private JTextArea textArea;
+    private JTextArea textArea= new JTextArea();
     private JButton addButton = new JButton("Add Transaction");
     private JButton BudgetButton = new JButton("Add Budget");
-    private JButton InkomstButton = new JButton("inkomst Budget");
     public BudgetApp() {
         this.transactions = new Transactions();
 
-        this.textArea = new JTextArea(1, 10);
 
         addButton.addActionListener(new ActionListener() {
             @Override
@@ -41,17 +39,10 @@ public class BudgetApp extends JPanel {
                 repaint();
             }
         });
-        InkomstButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                double inkomst = Double.parseDouble(JOptionPane.showInputDialog(BudgetApp.this, "Voer het inkomst in:"));
-                budget.setInkomst(inkomst);
-                repaint();
-            }
-        });
+
         add(addButton);
         add(BudgetButton);
-        add(InkomstButton);
+
 
 
     }
@@ -62,6 +53,6 @@ public class BudgetApp extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         transactions.DrawTransactions(g,transactions,addButton,textArea);
-        budget.draw(g,BudgetButton,InkomstButton);
+        budget.draw(g,BudgetButton,BudgetButton);
     }
 }
